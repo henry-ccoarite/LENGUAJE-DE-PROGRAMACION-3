@@ -1,0 +1,115 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Calculadora Colorida</title>
+  <style>
+    * {
+      box-sizing: border-box;
+      font-family: Arial, sans-serif;
+    }
+
+    body {
+      margin: 0;
+      min-height: 100vh;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      background: linear-gradient(135deg, #ff6ec4, #7873f5, #4facfe);
+    }
+
+    .container {
+      background: rgba(255, 255, 255, 0.9);
+      padding: 30px;
+      border-radius: 25px;
+      box-shadow: 0 10px 30px rgba(0,0,0,0.2);
+      width: 400px;
+      text-align: center;
+    }
+
+    h1 {
+      color: #6a0dad;
+    }
+
+    input {
+      width: 100%;
+      padding: 12px;
+      margin: 10px 0;
+      border: 2px solid #ccc;
+      border-radius: 15px;
+    }
+
+    .buttons {
+      display: grid;
+      grid-template-columns: repeat(2, 1fr);
+      gap: 10px;
+    }
+
+    button {
+      padding: 12px;
+      border: none;
+      border-radius: 15px;
+      color: white;
+      cursor: pointer;
+      background: linear-gradient(90deg, #8e2de2, #ff6ec4);
+      transition: transform 0.2s;
+    }
+
+    button:hover {
+      transform: scale(1.05);
+    }
+
+    .resultado {
+      margin-top: 20px;
+      padding: 15px;
+      border-radius: 15px;
+      background: #fff3cd;
+      font-size: 22px;
+      font-weight: bold;
+      color: #6a0dad;
+    }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <h1>✨ Calculadora de 2 Números ✨</h1>
+    <input type="number" id="num1" placeholder="Ingresa el primer número">
+    <input type="number" id="num2" placeholder="Ingresa el segundo número">
+
+    <div class="buttons">
+      <button onclick="calcular('+')">Suma</button>
+      <button onclick="calcular('-')">Resta</button>
+      <button onclick="calcular('*')">Multiplicar</button>
+      <button onclick="calcular('/')">Dividir</button>
+    </div>
+
+    <div class="resultado" id="resultado">Resultado: 0</div>
+  </div>
+
+  <script>
+    function calcular(operacion) {
+      let a = parseFloat(document.getElementById('num1').value) || 0;
+      let b = parseFloat(document.getElementById('num2').value) || 0;
+      let resultado;
+
+      switch (operacion) {
+        case '+':
+          resultado = a + b;
+          break;
+        case '-':
+          resultado = a - b;
+          break;
+        case '*':
+          resultado = a * b;
+          break;
+        case '/':
+          resultado = b !== 0 ? a / b : 'No se puede dividir entre 0';
+          break;
+      }
+
+      document.getElementById('resultado').innerText = 'Resultado: ' + resultado;
+    }
+  </script>
+</body>
+</html>
