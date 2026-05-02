@@ -1,67 +1,86 @@
 const card = document.getElementById('card');
-const colors = ['#e8c97a','#ff4444','#4488ff','#ffffff','#ff8c00'];
 
-// TILT 3D — la tarjeta se inclina siguiendo el mouse
-document.addEventListener('mousemove', (e) => {
+// 1. Efecto de "Tilt" (Inclinación 3D) al mover el ratón
+card.addEventListener('mousemove', (e) => {
   const rect = card.getBoundingClientRect();
-  const cx = rect.left + rect.width / 2;
-  const cy = rect.top + rect.height / 2;
-  const dx = (e.clientX - cx) / (rect.width / 2);
-  const dy = (e.clientY - cy) / (rect.height / 2);
-  const dist = Math.sqrt(dx*dx + dy*dy);
-  if (dist < 2.5) {
-    card.style.transform = `rotateY(${dx * 12}deg) rotateX(${-dy * 10}deg)`;
-  } else {
-    card.style.transform = 'rotateY(0deg) rotateX(0deg)';
-  }
+  const x = e.clientX - rect.left;
+  const y = e.clientY - rect.top;
+  
+  const centerX = rect.width / 2;
+  const centerY = rect.height / 2;
+  
+  // Calculamos la rotación (máximo 15 grados)
+  const rotateX = ((y - centerY) / centerY) * -15;
+  const rotateY = ((x - centerX) / centerX) * 15;
+  
+  card.style.transform = `perspective(1000px) rotateX(${rotateX}deg) rotateY(${rotateY}deg)`;
 });
 
-document.addEventListener('mouseleave', () => {
-  card.style.transform = 'rotateY(0deg) rotateX(0deg)';
+// Resetear la inclinación cuando el ratón sale
+card.addEventListener('mouseleave', () => {
+  card.style.transform = `perspective(1000px) rotateX(0deg) rotateY(0deg)`;
 });
 
-// CLICK — partículas + ripple + frases de One Piece
-card.addEventListener('click', (e) => {
-  spawnParticles(e.clientX, e.clientY);
-  spawnRipple(e.clientX, e.clientY);
-  spawnText(e.clientX, e.clientY);
-});
+// 2. Efecto de clic (Partículas, Ripple y Soundwave)
+document.addEventListener('mousedown', (e) => {
+  // Crear el Ripple (Aro dorado)
+  const ripple = document.createElement('div');
+  ripple.className = 'ripple';
+  ripple.style.left = `${e.clientX}px`;
+  ripple.style.top = `${e.clientY}px`;
+  document.body.appendChild(ripple);
 
-function spawnParticles(x, y) {
-  for (let i = 0; i < 12; i++) {
+  // Crear el texto "Soundwave" (como un grito de batalla)
+  const wave = document.createElement('div');
+  wave.className = 'soundwave';
+  wave.innerText = 'GOMU GOMU NO!';
+  wave.style.left = `${e.clientX}px`;
+  wave.style.top = `${e.clientY}px`;
+  document.body.appendChild(wave);
+
+  // Crear Partículas (Efecto de chispas)
+  for (let i = 0; i < 10; i++) {
     const p = document.createElement('div');
     p.className = 'particle';
-    const angle = (Math.PI * 2 / 12) * i;
-    const dist = 40 + Math.random() * 60;
-    p.style.cssText = `
-      left: ${x}px; top: ${y}px;
-      background: ${colors[Math.floor(Math.random() * colors.length)]};
-      --dx: ${Math.cos(angle) * dist}px;
-      --dy: ${Math.sin(angle) * dist}px;
-    `;
+    p.style.background = '#e8c97a'; // Color dorado
+    p.style.left = `${e.clientX}px`;
+    p.style.top = `${e.clientY}px`;
+    
+    // Direcciones aleatorias para las variables CSS --dx y --dy
+    const dx = (Math.random() - 0.5) * 250 + 'px';
+    const dy = (Math.random() - 0.5) * 250 + 'px';
+    p.style.setProperty('--dx', dx);
+    p.style.setProperty('--dy', dy);
+    
     document.body.appendChild(p);
-    setTimeout(() => p.remove(), 900);
+    
+    // Eliminar partícula tras la animación
+    setTimeout(() => p.remove(), 800);
   }
-}
 
-function spawnRipple(x, y) {
-  const r = document.createElement('div');
-  r.className = 'ripple';
-  r.style.left = x + 'px';
-  r.style.top = y + 'px';
-  document.body.appendChild(r);
-  setTimeout(() => r.remove(), 700);
-}
+  // Limpiar Ripple y Wave
+  setTimeout(() => {
+    ripple.remove();
+    wave.remove();
+  }, 1000);
+});
+document.addEventListener('DOMContentLoaded', () => {
+    const card = document.getElementById('card');
+    const luffyRender = card.querySelector('img:last-child');
 
-const phrases = ['¡GOMU GOMU!', '¡NAKAMA!', '¡PIRATE KING!', '¡GEAR 5!', '¡YOHOHOHO!'];
-let phraseIdx = 0;
-function spawnText(x, y) {
-  const t = document.createElement('div');
-  t.className = 'soundwave';
-  t.textContent = phrases[phraseIdx % phrases.length];
-  phraseIdx++;
-  t.style.left = x + 'px';
-  t.style.top = y + 'px';
-  document.body.appendChild(t);
-  setTimeout(() => t.remove(), 1100);
-}
+    // Efecto de impacto al hacer clic
+    card.addEventListener('mousedown', () => {
+        // Hacemos que la imagen de Luffy "salte"
+        luffyRender.style.transition = "transform 0.05s";
+        luffyRender.style.transform = "translateX(-50%) translateY(-20%) scale(1.3)";
+        
+        // Añadir un flash blanco rápido al fondo (opcional)
+        document.body.style.backgroundColor = "#1a1a2e";
+        setTimeout(() => {
+            document.body.style.backgroundColor = "#0a0a14";
+            luffyRender.style.transform = "translateX(-50%) translateY(5%) scale(1.1)";
+        }, 100);
+    });
+
+    // Mantén tu código anterior de partículas aquí abajo...
+});

@@ -1,24 +1,229 @@
 <!DOCTYPE html>
 <html lang="es">
 <head>
-  <meta charset="UTF-8">
-  <title>One Piece - Luffy</title>
-  <link rel="stylesheet" href="style.css">
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>One Piece - Luffy Gear 5 Effect</title>
+    <style>
+        /* CSS INTEGRADO */
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+
+        body {
+            min-height: 100vh;
+            background: #0a0a14;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            font-family: 'Segoe UI', sans-serif;
+            overflow: hidden;
+            transition: background-color 0.1s;
+        }
+
+        .bg-waves {
+            position: fixed;
+            inset: 0;
+            background:
+                radial-gradient(ellipse at 20% 50%, rgba(0,60,180,0.15) 0%, transparent 60%),
+                radial-gradient(ellipse at 80% 30%, rgba(200,30,30,0.12) 0%, transparent 50%),
+                #0a0a14;
+            z-index: 0;
+        }
+
+        .scene {
+            position: relative;
+            z-index: 1;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 2rem;
+        }
+
+        .title {
+            color: #e8c97a;
+            font-size: 13px;
+            letter-spacing: 6px;
+            text-transform: uppercase;
+            opacity: 0.7;
+        }
+
+        article {
+            position: relative;
+            width: 240px;
+            height: 340px;
+            cursor: pointer;
+            transform-style: preserve-3d;
+            transition: transform 0.1s ease;
+        }
+
+        /* Imagen de Fondo (La carta) */
+        article img:first-child {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            border-radius: 20px;
+            box-shadow: 0 20px 60px rgba(0,0,0,0.6), 0 0 0 1px rgba(255,255,255,0.1);
+            position: relative;
+            z-index: 2;
+        }
+
+        /* Imagen de Luffy (PNG que salta) */
+        article img:last-of-type {
+            position: absolute;
+            width: 170%;
+            bottom: 0;
+            left: 50%;
+            transform: translateX(-50%) translateY(10%) scale(0.8);
+            opacity: 0;
+            transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+            z-index: 5;
+            filter: drop-shadow(0 10px 30px rgba(0,0,0,0.8));
+        }
+
+        /* EFECTO VIBRACIÓN TIPO ALTAVOZ (Hover) */
+        @keyframes speaker-vibration {
+            0% { transform: translateX(-52%) translateY(-4%) scale(1.1) rotate(-1deg); }
+            100% { transform: translateX(-48%) translateY(-6%) scale(1.12) rotate(1deg); }
+        }
+
+        article:hover img:last-of-type {
+            opacity: 1;
+            transform: translateX(-50%) translateY(-5%) scale(1.1);
+            animation: speaker-vibration 0.05s infinite alternate; /* Ultra rápido */
+        }
+
+        article::before {
+            content: "";
+            position: absolute;
+            inset: 0;
+            border-radius: 20px;
+            background: linear-gradient(180deg, transparent 40%, rgba(10,10,20,0.8) 100%);
+            opacity: 0;
+            transition: opacity 0.4s ease;
+            z-index: 3;
+        }
+
+        article:hover::before { opacity: 1; }
+
+        .name-tag {
+            position: absolute;
+            bottom: 20px;
+            left: 50%;
+            transform: translateX(-50%) translateY(20px);
+            opacity: 0;
+            z-index: 6;
+            text-align: center;
+            transition: all 0.4s ease;
+        }
+
+        .name-tag span {
+            display: block;
+            color: #fff;
+            font-size: 22px;
+            font-weight: 900;
+            letter-spacing: 2px;
+        }
+
+        article:hover .name-tag {
+            opacity: 1;
+            transform: translateX(-50%) translateY(0);
+        }
+
+        /* Elementos dinámicos JS */
+        .particle {
+            position: fixed;
+            width: 6px; height: 6px;
+            background: #e8c97a;
+            border-radius: 50%;
+            pointer-events: none;
+            z-index: 100;
+            animation: fly 0.8s ease-out forwards;
+        }
+        @keyframes fly { to { transform: translate(var(--dx), var(--dy)) scale(0); opacity: 0; } }
+
+        .soundwave {
+            position: fixed;
+            color: #e8c97a;
+            font-weight: 900;
+            font-size: 30px;
+            pointer-events: none;
+            z-index: 101;
+            animation: wave-up 0.8s ease-out forwards;
+        }
+        @keyframes wave-up { 0% { opacity: 1; } 100% { opacity: 0; transform: translate(-50%, -150%) scale(2); } }
+    </style>
 </head>
 <body>
-  <div class="bg-waves"></div>
-  <div class="scene">
-    <p class="title">One Piece</p>
-    <article id="card">
-      <img src="imagenes/luffy_1.jpg" alt="Monkey D. Luffy">
-      <img src="imagenes/luffy_2.png" alt="Luffy sombra">
-      <div class="name-tag">
-        <span>LUFFY</span>
-        <small>Rey de los piratas</small>
-      </div>
-    </article>
-    <p class="hint">hover · click · mueve el ratón</p>
-  </div>
-  <script src="one_piece.js"></script>
+
+    <div class="bg-waves"></div>
+
+    <div class="scene">
+        <p class="title">Monkey D. Luffy</p>
+        
+        <article id="card">
+            <img src="imagenes/lufy_1.jpg" alt="Fondo">
+            <img src="imagenes/luffy_2.png" alt="Luffy">
+            
+            <div class="name-tag">
+                <span>GEAR 5</span>
+                <small style="color:#e8c97a; font-size:10px; letter-spacing:3px;">REY DE LOS PIRATAS</small>
+            </div>
+        </article>
+
+        <p style="color:rgba(255,255,255,0.3); font-size:10px; letter-spacing:2px; text-transform:uppercase;">
+            Hover para vibrar • Click para impacto
+        </p>
+    </div>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', () => {
+            const card = document.getElementById('card');
+            
+            // 1. Inclinación 3D con el ratón
+            card.addEventListener('mousemove', (e) => {
+                const rect = card.getBoundingClientRect();
+                const x = e.clientX - rect.left;
+                const y = e.clientY - rect.top;
+                const centerX = rect.width / 2;
+                const centerY = rect.height / 2;
+                const rotateX = ((y - centerY) / centerY) * -20;
+                const rotateY = ((x - centerX) / centerX) * 20;
+                card.style.transform = `perspective(1000px) rotateX(${rotateX}deg) rotateY(${rotateY}deg)`;
+            });
+
+            card.addEventListener('mouseleave', () => {
+                card.style.transform = `perspective(1000px) rotateX(0deg) rotateY(0deg)`;
+            });
+
+            // 2. Efecto de IMPACTO (Copia el feeling del video)
+            document.addEventListener('mousedown', (e) => {
+                // Flash rápido
+                document.body.style.backgroundColor = "#1a1a3a";
+                setTimeout(() => document.body.style.backgroundColor = "#0a0a14", 100);
+
+                // Texto flotante
+                const wave = document.createElement('div');
+                wave.className = 'soundwave';
+                wave.style.left = e.clientX + 'px';
+                wave.style.top = e.clientY + 'px';
+                wave.innerText = 'BOOM!';
+                document.body.appendChild(wave);
+
+                // Partículas
+                for(let i=0; i<12; i++) {
+                    const p = document.createElement('div');
+                    p.className = 'particle';
+                    p.style.left = e.clientX + 'px';
+                    p.style.top = e.clientY + 'px';
+                    const dx = (Math.random() - 0.5) * 400 + 'px';
+                    const dy = (Math.random() - 0.5) * 400 + 'px';
+                    p.style.setProperty('--dx', dx);
+                    p.style.setProperty('--dy', dy);
+                    document.body.appendChild(p);
+                    setTimeout(() => p.remove(), 800);
+                }
+                setTimeout(() => wave.remove(), 800);
+            });
+        });
+    </script>
 </body>
 </html>
