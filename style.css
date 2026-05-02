@@ -1,3 +1,35 @@
+/* Asegúrate de que el contenedor permita ver elementos al lado */
+.main-container {
+  display: flex !important; /* Fuerza el modo fila */
+  flex-direction: row;
+  align-items: center;
+  justify-content: center;
+  gap: 20px;
+  width: 100%;
+}
+
+/* Estilo del botón para que resalte */
+.btn-unidad-fijo {
+  display: inline-block; /* Asegura que se renderice */
+  min-width: 120px;
+  padding: 15px 25px;
+  background: #e8c97a; /* Color sólido para que lo veas primero */
+  color: #0a0a14;
+  border: none;
+  border-radius: 8px;
+  font-weight: bold;
+  font-family: 'Segoe UI', sans-serif;
+  letter-spacing: 2px;
+  cursor: pointer;
+  z-index: 99; /* Lo pone por encima de todo */
+  transition: transform 0.2s ease;
+}
+
+.btn-unidad-fijo:hover {
+  transform: scale(1.1);
+  background: #fff;
+}
+*/lufyyy____img*/
 * { margin: 0; padding: 0; box-sizing: border-box; }
 
 body {
@@ -214,3 +246,4 @@ article:active {
   transform: scale(0.95);
   transition: transform 0.1s;
 }
+/*lufy--------------------------------------------------------------------------------img*/
