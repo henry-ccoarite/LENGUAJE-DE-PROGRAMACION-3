@@ -1,249 +1,127 @@
-/* Asegúrate de que el contenedor permita ver elementos al lado */
-.main-container {
-  display: flex !important; /* Fuerza el modo fila */
-  flex-direction: row;
-  align-items: center;
-  justify-content: center;
-  gap: 20px;
-  width: 100%;
-}
-
-/* Estilo del botón para que resalte */
-.btn-unidad-fijo {
-  display: inline-block; /* Asegura que se renderice */
-  min-width: 120px;
-  padding: 15px 25px;
-  background: #e8c97a; /* Color sólido para que lo veas primero */
-  color: #0a0a14;
-  border: none;
-  border-radius: 8px;
-  font-weight: bold;
-  font-family: 'Segoe UI', sans-serif;
-  letter-spacing: 2px;
-  cursor: pointer;
-  z-index: 99; /* Lo pone por encima de todo */
-  transition: transform 0.2s ease;
-}
-
-.btn-unidad-fijo:hover {
-  transform: scale(1.1);
-  background: #fff;
-}
-*/lufyyy____img*/
 * { margin: 0; padding: 0; box-sizing: border-box; }
 
 body {
-  min-height: 100vh;
-  background: #0a0a14;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  font-family: 'Segoe UI', sans-serif;
-  overflow: hidden;
+    min-height: 100vh;
+    background: #0a0a14;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    font-family: 'Segoe UI', sans-serif;
+    overflow: hidden;
+    transition: background-color 0.1s;
 }
 
+/* BOTÓN SUPERIOR ROJO */
+.btn-unidad-fijo {
+    position: fixed;
+    top: 30px;
+    left: 50%;
+    transform: translateX(-50%);
+    background: #ff3b3b;
+    color: white;
+    border: none;
+    padding: 12px 25px;
+    border-radius: 50px;
+    font-weight: bold;
+    cursor: pointer;
+    box-shadow: 0 5px 15px rgba(0,0,0,0.3);
+    z-index: 1000;
+    letter-spacing: 2px;
+}
 .bg-waves {
-  position: fixed;
-  inset: 0;
-  background:
-    radial-gradient(ellipse at 20% 50%, rgba(0,60,180,0.15) 0%, transparent 60%),
-    radial-gradient(ellipse at 80% 30%, rgba(200,30,30,0.12) 0%, transparent 50%),
-    #0a0a14;
-  z-index: 0;
+    position: fixed;
+    inset: 0;
+    background: radial-gradient(ellipse at 20% 50%, rgba(0,60,180,0.15) 0%, transparent 60%), #0a0a14;
+    z-index: 0;
 }
 
-.scene {
-  position: relative;
-  z-index: 1;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  gap: 2rem;
-}
+.scene { position: relative; z-index: 1; display: flex; flex-direction: column; align-items: center; gap: 20px; }
 
-.title {
-  color: #e8c97a;
-  font-size: 13px;
-  letter-spacing: 6px;
-  text-transform: uppercase;
-  opacity: 0.7;
-}
+.main-layout { display: flex; align-items: center; gap: 30px; }
 
+/* TARJETA */
 article {
-  position: relative;
-  width: 220px;
-  cursor: pointer;
+    position: relative;
+    width: 220px;
+    height: 300px;
+    cursor: pointer;
+    transform-style: preserve-3d;
+    transition: transform 0.1s;
 }
 
-article img:first-child {
-  width: 100%;
-  height: 300px;
-  object-fit: cover;
-  object-position: top center;
-  border-radius: 20px;
-  display: block;
-  box-shadow: 0 20px 60px rgba(0,0,0,0.6), 0 0 0 1px rgba(255,255,255,0.05);
-  transition: transform 0.4s ease, box-shadow 0.4s ease;
-  position: relative;
-  z-index: 2;
+article .base-img {
+    width: 100%; height: 100%;
+    object-fit: cover; border-radius: 20px;
+    box-shadow: 0 20px 60px rgba(0,0,0,0.6);
 }
 
-article img:last-child {
-  position: absolute;
-  width: 180%;
-  bottom: -20px;
-  left: 50%;
-  transform: translateX(-50%) translateY(20%) scale(0.9);
-  opacity: 0;
-  transition: all 0.4s ease;
-  z-index: 1;
-  filter: blur(2px);
-  pointer-events: none;
+article .luffy-img {
+    position: absolute;
+    width: 180%; bottom: -20px; left: 50%;
+    transform: translateX(-50%) translateY(20%) scale(0.9);
+    opacity: 0; transition: all 0.4s;
+    z-index: 5; pointer-events: none;
 }
 
-article::before {
-  content: "";
-  position: absolute;
-  inset: 0;
-  border-radius: 20px;
-  background: linear-gradient(180deg, transparent 40%, rgba(10,10,20,0.7) 100%);
-  opacity: 0;
-  transition: opacity 0.4s ease;
-  z-index: 3;
-  pointer-events: none;
+/* VIBRACIÓN AL HACER HOVER */
+@keyframes shake-extreme {
+    0% { transform: translate(1px, 1px) rotate(0deg) translateX(-50%); }
+    25% { transform: translate(-2px, -1px) rotate(-1deg) translateX(-50%); }
+    50% { transform: translate(2px, 1px) rotate(1deg) translateX(-50%); }
+    75% { transform: translate(-1px, 2px) rotate(-1deg) translateX(-50%); }
+    100% { transform: translate(1px, -2px) rotate(0deg) translateX(-50%); }
 }
 
-.name-tag {
-  position: absolute;
-  bottom: 16px;
-  left: 50%;
-  transform: translateX(-50%) translateY(10px);
-  opacity: 0;
-  z-index: 4;
-  text-align: center;
-  transition: all 0.4s ease;
-  white-space: nowrap;
+article:hover .luffy-img {
+    opacity: 1;
+    transform: translateX(-50%) translateY(5%) scale(1.1);
+    animation: shake-extreme 0.1s infinite;
+    filter: drop-shadow(0 0 15px rgba(232, 201, 122, 0.8));
 }
 
-.name-tag span {
-  display: block;
-  color: #fff;
-  font-size: 18px;
-  font-weight: 700;
-  letter-spacing: 2px;
+/* BOTÓN LATERAL */
+.upload-btn {
+    display: flex; flex-direction: column; align-items: center;
+    padding: 20px 15px; border: 2px dashed #e8c97a;
+    border-radius: 15px; color: #e8c97a; cursor: pointer;
 }
 
-.name-tag small {
-  color: #e8c97a;
-  font-size: 10px;
-  letter-spacing: 4px;
-  text-transform: uppercase;
-}
-
-article:hover img:first-child {
-  transform: translateY(-12px) scale(1.02);
-  box-shadow: 0 40px 80px rgba(0,0,0,0.8), 0 0 40px rgba(0,100,255,0.2);
-}
-
-article:hover img:last-child {
-  opacity: 0.85;
-  transform: translateX(-50%) translateY(5%) scale(1);
-  filter: blur(0px);
-}
-
-article:hover::before { opacity: 1; }
-
-article:hover .name-tag {
-  opacity: 1;
-  transform: translateX(-50%) translateY(0);
-}
-
-.hint {
-  color: rgba(255,255,255,0.25);
-  font-size: 11px;
-  letter-spacing: 2px;
-  text-transform: uppercase;
-}
-/* Partículas */
+/* EFECTOS ESPECIALES (PARTÍCULAS, RIPPLE) */
 .particle {
-  position: fixed;
-  width: 4px; height: 4px;
-  border-radius: 50%;
-  pointer-events: none;
-  z-index: 99;
-  animation: particle-fly 0.8s ease-out forwards;
+    position: fixed; width: 4px; height: 4px; border-radius: 50%;
+    pointer-events: none; z-index: 99;
+    animation: particle-fly 0.8s ease-out forwards;
 }
 @keyframes particle-fly {
-  0% { transform: translate(0,0) scale(1); opacity: 1; }
-  100% { transform: translate(var(--dx), var(--dy)) scale(0); opacity: 0; }
+    0% { transform: translate(0,0) scale(1); opacity: 1; }
+    100% { transform: translate(var(--dx), var(--dy)) scale(0); opacity: 0; }
 }
 
-/* Ripple al click */
 .ripple {
-  position: fixed;
-  border-radius: 50%;
-  pointer-events: none;
-  z-index: 98;
-  border: 2px solid rgba(232,201,122,0.6);
-  animation: ripple-out 0.6s ease-out forwards;
+    position: fixed; border-radius: 50%; pointer-events: none;
+    border: 2px solid rgba(232,201,122,0.6);
+    animation: ripple-out 0.6s ease-out forwards;
+    transform: translate(-50%, -50%);
 }
 @keyframes ripple-out {
-  0% { width: 0; height: 0; opacity: 1; transform: translate(-50%, -50%); }
-  100% { width: 120px; height: 120px; opacity: 0; transform: translate(-50%, -50%); }
+    0% { width: 0; height: 0; opacity: 1; }
+    100% { width: 150px; height: 150px; opacity: 0; }
 }
 
-/* Texto al click */
 .soundwave {
-  position: fixed;
-  pointer-events: none;
-  z-index: 97;
-  color: #e8c97a;
-  font-size: 22px;
-  font-weight: 700;
-  letter-spacing: 3px;
-  animation: sw-fly 1s ease-out forwards;
+    position: fixed; pointer-events: none; color: #e8c97a;
+    font-weight: bold; font-size: 20px;
+    animation: sw-fly 1s ease-out forwards;
 }
 @keyframes sw-fly {
-  0% { opacity: 1; transform: translate(-50%, -50%) scale(0.5); }
-  100% { opacity: 0; transform: translate(-50%, -120%) scale(1.4); }
+    0% { opacity: 1; transform: translate(-50%, -50%) scale(0.5); }
+    100% { opacity: 0; transform: translate(-50%, -150%) scale(1.5); }
 }
 
-/* Tilt 3D */
-article { transform-style: preserve-3d; }
-body {
-  justify-content: center !important;
-  align-items: center !important;
+/* SECCIÓN OCULTA */
+.seccion-oculta {
+    display: none; position: fixed; inset: 0;
+    background: rgba(10, 10, 20, 0.95); z-index: 2000;
+    color: white; padding: 50px;
 }
-
-.scene {
-  margin: 0 auto;
-}
-/* Animación de vibración tipo altavoz */
-@keyframes shake-extreme {
-  0% { transform: translate(1px, 1px) rotate(0deg); }
-  10% { transform: translate(-1px, -2px) rotate(-1deg); }
-  20% { transform: translate(-3px, 0px) rotate(1deg); }
-  30% { transform: translate(3px, 2px) rotate(0deg); }
-  40% { transform: translate(1px, -1px) rotate(1deg); }
-  50% { transform: translate(-1px, 2px) rotate(-1deg); }
-  60% { transform: translate(-3px, 1px) rotate(0deg); }
-  70% { transform: translate(3px, 1px) rotate(-1deg); }
-  80% { transform: translate(-1px, -1px) rotate(1deg); }
-  90% { transform: translate(1px, 2px) rotate(0deg); }
-  100% { transform: translate(1px, -2px) rotate(-1deg); }
-}
-
-/* Aplicar la vibración cuando pasas el ratón */
-article:hover img:last-child {
-  opacity: 1;
-  transform: translateX(-50%) translateY(5%) scale(1.1);
-  animation: shake-extreme 0.1s infinite; /* Vibración súper rápida como en el video */
-  filter: drop-shadow(0 0 15px rgba(232, 201, 122, 0.8));
-}
-
-/* Efecto de pulso para la tarjeta entera */
-article:active {
-  transform: scale(0.95);
-  transition: transform 0.1s;
-}
-/*lufy--------------------------------------------------------------------------------img*/
+.seccion-oculta.visible { display: block; }
