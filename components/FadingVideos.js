@@ -57,8 +57,7 @@ window.FadingVideo = function FadingVideo({ src, className, style, scale = false
         if (!video) return;
 
         const remaining = video.duration - video.currentTime;
-        if (
-            !fadingOutRef.current &&
+        if (!fadingOutRef.current &&
             remaining <= FADING_VIDEO_FADE_OUT_LEAD &&
             remaining > 0
         ) {
@@ -113,17 +112,13 @@ window.FadingVideo = function FadingVideo({ src, className, style, scale = false
         videoStyles.height = '120%';
     }
 
-    return (
-        <video
-            ref={videoRef}
-            src={src}
-            autoPlay
-            muted
-            playsInline
-            preload="auto"
-            loop={false}
-            className={className}
-            style={videoStyles}
+    return ( <
+        video ref = { videoRef }
+        src = { src }
+        autoPlay muted playsInline preload = "auto"
+        loop = { false }
+        className = { className }
+        style = { videoStyles }
         />
     );
 };
