@@ -135,7 +135,7 @@
     </svg> ); } function GlobeIcon({ className = "h-7 w-7" }) { return (
         <svg className={className} viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5">
       <circle cx="12" cy="12" r="9" />
-      <path d="M3 XX12h18M12 3c2.5 2.7 4 6 4 9s-1.5 6.3-4 9c-2.5-2.7-4-6-4-9s1.5-6.3 4-9Z" strokeLinecap="round" strokeLinejoin="round" />
+      <path d="M3 12h18M12 3c2.5 2.7 4 6 4 9s-1.5 6.3-4 9c-2.5-2.7-4-6-4-9s1.5-6.3 4-9Z" strokeLinecap="round" strokeLinejoin="round" />
     </svg> ); } function ImageIcon({ className = "h-6 w-6 text-white" }) { return (
         <svg className={className} viewBox="0 0 24 24" fill="currentColor">
       <path d="M5 21q-.825 0-1.412-.587T3 19V5q0-.825.588-1.412T5 3h14q.825 0 1.413.588T21 5v14q0 .825-.587 1.413T19 21H5Zm1-4h12l-3.75-5-3 4L9 13l-3 4Z" />
@@ -149,7 +149,8 @@
         FadingVideo ---------------- */ const FADE_MS = 500; const FADE_OUT_LEAD = 0.55; function FadingVideo({ src, className, style }) { const videoRef = useRef(null); const rafRef = useRef(null); const fadingOutRef = useRef(false); useEffect(() =>
         { const video = videoRef.current; if (!video) return; function fadeTo(target, duration) { if (rafRef.current) cancelAnimationFrame(rafRef.current); const start = performance.now(); const from = parseFloat(video.style.opacity) || 0; function step(now)
         { const elapsed = now - start; const t = Math.min(elapsed / duration, 1); const value = from + (target - from) * t; video.style.opacity = value; if (t
-        < 1) { rafRef.current=r equestAnimationFrame(step); } } rafRef.current=r equestAnimationFrame(step); } function onLoadedData() { video.style.opacity=0 ; video.play().catch(()=> {}); fadeTo(1, FADE_MS); } function onTimeUpdate() { if (!fadingOutRef.current && video.duration - video.currentTime
+        < 1) { rafRef.current=r equestAnimationFrame(step); } } rafRef.current=r equestAnimationFrame(step);
+            } function onLoadedData() { video.style.opacity=0 ; video.play().catch(()=> {}); fadeTo(1, FADE_MS); } function onTimeUpdate() { if (!fadingOutRef.current && video.duration - video.currentTime
             <=F ADE_OUT_LEAD && video.duration - video.currentTime> 0) { fadingOutRef.current = true; fadeTo(0, FADE_MS); } } function onEnded() { video.style.opacity = 0; setTimeout(() => { video.currentTime = 0; video.play().catch(() => {}); fadingOutRef.current = false; fadeTo(1, FADE_MS); }, 100); } video.addEventListener('loadeddata',
                 onLoadedData); video.addEventListener('timeupdate', onTimeUpdate); video.addEventListener('ended', onEnded); return () => { if (rafRef.current) cancelAnimationFrame(rafRef.current); video.removeEventListener('loadeddata', onLoadedData);
                 video.removeEventListener('timeupdate', onTimeUpdate); video.removeEventListener('ended', onEnded); }; }, [src]); return (
