@@ -60,8 +60,7 @@ function Hero() {
             transition={{ duration: 0.8, ease: "easeOut", delay: 0.8 }}
             className="mt-4 text-sm md:text-base text-white max-w-2xl font-body font-light leading-tight text-center"
           >
-            Discover the universe in ways once unimaginable. Our pioneering vessels and breakthrough engineering
-            bring deep-space exploration within reach—secure and extraordinary.
+            UNIVERSIDAD NACIONAL DEL ALTIPLANO - PUNO
           </motionHero.p>
 
           <motionHero.div
