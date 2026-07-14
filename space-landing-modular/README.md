@@ -1,6 +1,6 @@
 # Venture Past Our Sky — sitio modular
 
-## Cómo abrirlo
+## Cómo abrirlo xd
 Solo abre `index.html` con doble clic (o arrástralo a tu navegador). No necesita servidor:
 todos los `<script src="...">` son archivos JS planos locales, así que funcionan igual con
 `file://` que con un servidor local.
