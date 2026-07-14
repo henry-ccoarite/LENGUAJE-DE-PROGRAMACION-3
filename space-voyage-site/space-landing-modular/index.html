@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Venture Past Our Sky — Deep Space Voyages ii</title>
+
+    <!-- Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link href="https://fonts.googleapis.com/css2?family=Instrument+Serif:ital@0;1&family=Barlow:wght@300;400;500;600&display=swap" rel="stylesheet" />
+
+    <!-- Tailwind (CDN / JIT) + its config -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script src="js-config/tailwind.config.js"></script>
+
+    <!-- React / ReactDOM -->
+    <script src="https://unpkg.com/react@18.3.1/umd/react.development.js" crossorigin="anonymous"></script>
+    <script src="https://unpkg.com/react-dom@18.3.1/umd/react-dom.development.js" crossorigin="anonymous"></script>
+
+    <!-- Framer Motion (UMD) -->
+    <script src="https://unpkg.com/framer-motion@11.11.17/dist/framer-motion.js"></script>
+    <script>
+        // Framer Motion's UMD build exposes window.Motion — normalize the name we use everywhere.
+        window.FramerMotion = window.Motion || window.FramerMotion;
+    </script>
+
+    <!-- Liquid-glass design system -->
+    <link rel="stylesheet" href="css/glass.css" />
+</head>
+
+<body>
+    <div id="root"></div>
+
+    <!--
+  Each piece below is a PLAIN, already-compiled JS file (no JSX,
+  no Babel needed in the browser) generated from the matching
+  file in /src via build.sh. Edit the .jsx source, then run
+  ./build.sh to regenerate everything in /build.
+
+  Load order matters: icons/FadingVideo/BlurText/Navbar first
+  (building blocks), then Hero/Capabilities (sections that use
+  them), then App last (mounts the whole tree).
+-->
+    <script src="build/icons.js"></script>
+    <script src="build/FadingVideo.js"></script>
+    <script src="build/BlurText.js"></script>
+    <script src="build/Navbar.js"></script>
+    <script src="build/Hero.js"></script>
+    <script src="build/Capabilities.js"></script>
+    <script src="build/App.js"></script>
+</body>
+
+</html>
