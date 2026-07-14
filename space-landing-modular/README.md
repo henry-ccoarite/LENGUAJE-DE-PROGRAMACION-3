@@ -1,6 +1,6 @@
 # Venture Past Our Sky — sitio modular
 
-## Cómo abrirlo xd
+## Cómo abrirlo xdxdxd
 Solo abre `index.html` con doble clic (o arrástralo a tu navegador). No necesita servidor:
 todos los `<script src="...">` son archivos JS planos locales, así que funcionan igual con
 `file://` que con un servidor local.
@@ -10,7 +10,7 @@ todos los `<script src="...">` son archivos JS planos locales, así que funciona
 ```
 index.html              <- carga todo, en el orden correcto
 css/glass.css            <- el sistema "liquid glass" (los dos estilos de vidrio)
-js-config/tailwind.config.js  <- fuentes + el radio de borde "pill" por defecto
+js-config/tailwind.config.js  <- fuentesgit  + el radio de borde "pill" por defecto
 src/*.jsx                <- código fuente editable, uno por componente
 build/*.js                <- versión ya compilada (NO la edites a mano)
 build.sh                  <- recompila src/*.jsx -> build/*.js
